@@ -20,6 +20,7 @@ if [ ! -d /app/.heroku/miniconda ]; then
     puts-step "Preparing Python/Miniconda Environment (${MINICONDA_URI})"
     curl -OsL ${MINICONDA_URI}
     bash ${MINICONDA_FILE} -p ${APP_DIR}/.heroku/miniconda/ -b
+    export PATH="/.heroku/miniconda/bin:$PATH"
 fi
 
 
