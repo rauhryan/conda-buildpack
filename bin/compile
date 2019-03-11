@@ -44,6 +44,9 @@ export PATH=$BUILD_DIR/.heroku/miniconda/bin:$PATH
 export PYTHONUNBUFFERED=1
 export LANG=en_US.UTF-8
 
+
+echo "INSTALLING CONDA TO ${BUILD_DIR}"
+
 # Switch to the repo's context.
 cd $BUILD_DIR
 
