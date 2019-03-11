@@ -33,7 +33,7 @@ if [ -f requirements.txt ]; then
     pip install --requirement requirements.txt
 fi
 
-if [ -f environment.yml ]; then
+if [ -f environment2.yml ]; then
     puts-step "Creating conda environment"
     # TODO: Use update if its already there
     if [ -f /${APP_DIR}/.heroku/miniconda/envs/heroku-env ]; then
