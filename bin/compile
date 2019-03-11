@@ -46,6 +46,7 @@ export LANG=en_US.UTF-8
 
 
 echo "INSTALLING CONDA TO ${BUILD_DIR}"
+ls -la /home/ubuntu
 
 # Switch to the repo's context.
 cd $BUILD_DIR
