@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 export PATH=$APP_DIR/.heroku/miniconda/bin:$PATH
+export HOME=$APP_DIR
 
 echo "Reached post_compile with PATH: ${PATH}"
 
