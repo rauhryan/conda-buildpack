@@ -16,7 +16,7 @@ dependencies:
   - flask
 ```
 
-To run a server on you ship create an `Procfile` that is one line and looks like:
+To run a server on your ship create a `Procfile` that is one line and looks like:
 
 ```bash
 web: source activate /home/ubuntu/app/.heroku/miniconda/envs/heroku-env; gunicorn server:app --bind 0.0.0.0:$PORT --timeout 90;
