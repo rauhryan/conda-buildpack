@@ -3,8 +3,7 @@ Conda Environment Buildpack
 
 This is the [Heroku Buildpack][] for [Conda][] using it's new
 [environment spec][].  Anything you can install with `conda install` can be
-installed using this, including the entire data science stack.  Be careful of
-slug sizes, though.  Heroku does have limits.
+installed using this in the post_containerize script.
 
 ## Usage
 To control what gets installed, create an `environment.yml` file in the root
@@ -17,37 +16,21 @@ dependencies:
   - flask
 ```
 
-Once that's created, you need to create a new Heroku app using this buildpack
-like this:
+To run a server on you ship create an `Procfile` that is one line and looks like:
 
-```console
-$ heroku create --buildpack https://github.com/conda/conda-buildpack.git
+```bash
+web: source activate /home/ubuntu/app/.heroku/miniconda/envs/heroku-env; gunicorn server:app --bind 0.0.0.0:$PORT --timeout 90;
 ```
 
-You can also add it to upcoming builds of an existing application:
-
-```console
-$ heroku config:add BUILDPACK_URL=https://github.com/conda/conda-buildpack.git
-```
-
-You can test that this is running conda managed Python like this:
-
-```console
-$ heroku run python
-Running `python` attached to terminal... up, run.7018
-Python 2.7.9 |Continuum Analytics, Inc.| (default, Dec 15 2014, 10:33:51)
-[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux2
-Type "help", "copyright", "credits" or "license" for more information.
-Anaconda is brought to you by Continuum Analytics.
-Please check out: http://continuum.io/thanks and https://binstar.org
->>>
-```
+to use your custom code change only the gunicorn part, the activate has to be done to use the conda env you built from your environment.yml (this buildpack will name it heroku-env)
 
 
-## Fair Warning
+## Sample Project:
+* https://github.com/glg/embedding_search
+* https://github.com/glg/ec2.starphleet.dev.headquarters/tree/TristanWise/embedding_search
 
-Heroku limits the final application footprint (slug) size to 300MB. Start small.
 
 [Conda]: http://conda.io
 [environment spec]: https://github.com/conda/conda-env#environmentyml
 [Heroku Buildpack]: https://devcenter.heroku.com/articles/buildpacks
+

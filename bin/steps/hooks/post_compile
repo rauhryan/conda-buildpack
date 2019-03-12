@@ -1,19 +1,11 @@
 #!/usr/bin/env bash
 export PATH=$APP_DIR/.heroku/miniconda/bin:$PATH
 export HOME=$APP_DIR
+
+#conda checks if sudo and fails, so unset sudo user to make conda happy
 unset SUDO_UID SUDO_GID SUDO_USER
 
 echo "Reached post_compile with PATH: ${PATH}"
-
-if [ -f conda-requirements.txt ]; then
-    echo "Installing dependencies using Conda"
-    conda install --file conda-requirements.txt --yes
-fi
-
-if [ -f requirements.txt ]; then
-    echo "Installing dependencies using pip"
-    pip install --requirement requirements.txt
-fi
 
 if [ -f environment.yml ]; then
     echo "Creating conda environment ${APP_DIR}"
