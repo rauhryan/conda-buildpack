@@ -1,8 +1,23 @@
 #!/usr/bin/env bash
 source ~/start
+
 echo "Reached post_compile with PATH: ${PATH}"
-if [ -f bin/post_compile ]; then
-    echo "-----> Running post-compile hook"
-    chmod +x bin/post_compile
-    bin/post_compile
+
+if [ -f conda-requirements.txt ]; then
+    echo "Installing dependencies using Conda"
+    conda install --file conda-requirements.txt --yes
+fi
+
+if [ -f requirements.txt ]; then
+    echo "Installing dependencies using pip"
+    pip install --requirement requirements.txt
+fi
+
+if [ -f environment.yml ]; then
+    echo "Creating conda environment ${APP_DIR}"
+    # TODO: Use update if its already there
+    if [ -f /${APP_DIR}/.heroku/miniconda/envs/heroku-env ]; then
+      conda env remove --yes --quiet --name heroku-env
+    fi
+    conda env create --name=heroku-env --file environment.yml
 fi

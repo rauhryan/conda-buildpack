@@ -22,22 +22,3 @@ if [ ! -d /app/.heroku/miniconda ]; then
     bash ${MINICONDA_FILE} -p ${APP_DIR}/.heroku/miniconda/ -b
 fi
 
-
-if [ -f conda-requirements.txt ]; then
-    puts-step "Installing dependencies using Conda"
-    conda install --file conda-requirements.txt --yes
-fi
-
-if [ -f requirements.txt ]; then
-    puts-step "Installing dependencies using pip"
-    pip install --requirement requirements.txt
-fi
-
-if [ -f environment2.yml ]; then
-    puts-step "Creating conda environment"
-    # TODO: Use update if its already there
-    if [ -f /${APP_DIR}/.heroku/miniconda/envs/heroku-env ]; then
-      conda env remove --yes --quiet --name heroku-env
-    fi
-    conda env create --name=heroku-env --file environment.yml
-fi
