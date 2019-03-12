@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 export PATH=$APP_DIR/.heroku/miniconda/bin:$PATH
 export HOME=$APP_DIR
-echo $(whoami)
+mkdir /home/ubuntu/app/.conda/pkgs
 
 echo "Reached post_compile with PATH: ${PATH}"
 
