@@ -25,6 +25,47 @@ web: source activate /home/ubuntu/app/.heroku/miniconda/envs/heroku-env; gunicor
 to use your custom code change only the gunicorn part, the activate has to be done to use the conda env you built from your environment.yml (this buildpack will name it heroku-env)
 
 
+## Using a package from different GLG _private_ git repository
+
+### In environment.yml
+```yml
+...
+  - zlib=1.2.11
+  - pip:
+    - "-e git+git@github.com:/glg/ai-cortex.git#egg=ai_cortex==0.5.0"
+    - click==7.0
+ ...
+```
+
+### For staging/production
+_Using python package from **private** github repo devship/production environment_
+
+**Modify** orders and add after_containerize file.  Here is [an example.](https://github.com/glg/ec2.starphleet.dev.headquarters/tree/61d31209ca7d1c8ee83d7d3bc97ef017f16a3806/ai-data-service)
+
+* In **orders**:
+  ```bash
+  # AI Team conda buildpack:
+  export BUILDPACK_URL=git@github.com:glg/ai-team-conda-buildpack.git
+  
+  # Required if using python/js packages from internal private repos:
+  export GIT_COMMAND="sudo starphleet-git"
+ 
+  # Required if using python packages from internal private repos to
+  # avoid a possible hang-causing confirmation:
+  export PIP_EXISTS_ACTION=w
+
+  ```
+* In **after_containerize**:
+  ```bash
+  #!/usr/bin/env bash  #!/usr/bin/env bash
+  echo "<AFTER_CONTAINERIZE>"
+  source /home/ubuntu/start
+  cd /home/ubuntu/app
+  source activate /home/ubuntu/app/.heroku/miniconda/envs/heroku-env
+  echo "</AFTER_CONTAINERIZE>"
+  ```
+
+
 ## Sample Project:
 * https://github.com/glg/embedding_search
 * https://github.com/glg/ec2.starphleet.dev.headquarters/tree/TristanWise/embedding_search
