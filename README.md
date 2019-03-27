@@ -53,18 +53,7 @@ _Using python package from **private** github repo devship/production environmen
   # Required if using python packages from internal private repos to
   # avoid a possible hang-causing confirmation:
   export PIP_EXISTS_ACTION=w
-
   ```
-* In **after_containerize**:
-  ```bash
-  #!/usr/bin/env bash  #!/usr/bin/env bash
-  echo "<AFTER_CONTAINERIZE>"
-  source /home/ubuntu/start
-  cd /home/ubuntu/app
-  source activate /home/ubuntu/app/.heroku/miniconda/envs/heroku-env
-  echo "</AFTER_CONTAINERIZE>"
-  ```
-
 
 ## Sample Project:
 * https://github.com/glg/embedding_search
