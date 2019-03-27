@@ -53,6 +53,10 @@ _Using python package from **private** github repo devship/production environmen
   # Required if using python packages from internal private repos to
   # avoid a possible hang-causing confirmation:
   export PIP_EXISTS_ACTION=w
+  
+  # More orders stuff
+  # ...
+  
   ```
 
 ## Sample Project:
